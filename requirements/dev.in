@@ -5,3 +5,4 @@ pytest-randomly
 pre-commit
 bump-my-version
 twine
+tox-py
