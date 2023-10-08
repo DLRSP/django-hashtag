@@ -37,6 +37,10 @@ INSTALLED_APPS = [
 3. Execute Django's command `migrate` inside your project's root:
 ```sheel
 python manage.py migrate
+Running migrations:
+  Applying hashtag.0001_initial... OK
+  Applying hashtag.0002_alter_mytag_slug... OK
+  Applying hashtag.0003_alter_mytag_last_used... OK
 ```
 
 ## Run Example Project
