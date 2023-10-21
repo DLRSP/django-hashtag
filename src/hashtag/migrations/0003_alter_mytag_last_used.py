@@ -15,7 +15,9 @@ class Migration(migrations.Migration):
             name="last_used",
             field=models.DateTimeField(
                 blank=True,
-                default=datetime.datetime(2000, 1, 1, 0, 0, tzinfo=datetime.timezone.utc),
+                default=datetime.datetime(
+                    2000, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
+                ),
                 null=True,
             ),
         ),
