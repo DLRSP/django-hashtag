@@ -14,9 +14,9 @@ django==4.2.14 \
     # via
     #   -r requirements/requirements.in
     #   django-taggit
-django-taggit==5.0.1 \
-    --hash=sha256:a0ca8a28b03c4b26c2630fd762cb76ec39b5e41abf727a7b66f897a625c5e647 \
-    --hash=sha256:edcd7db1e0f35c304e082a2f631ddac2e16ef5296029524eb792af7430cab4cc
+django-taggit==6.0.0 \
+    --hash=sha256:7094f797b7e5e3727525a0af7bc550860000ddc2248266529d568eca61b39fb1 \
+    --hash=sha256:723d98bd5c536daa3c0e1bdae0965f7005a9b15269816bb4053fafec4ebad57e
     # via -r requirements/requirements.in
 sqlparse==0.5.1 \
     --hash=sha256:773dcbf9a5ab44a090f3441e2180efe2560220203dc2f8c0b0fa141e18b505e4 \
