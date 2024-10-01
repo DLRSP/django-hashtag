@@ -12,7 +12,9 @@ logger = logging.getLogger(__name__)
 @receiver(post_save, sender=MyTaggedItem)
 def increase_hashtag_count(sender, instance, **kwargs):
     try:
-        logger.info(f"Signal fired: [increase_hashtag_count] for hashtag [{instance.tag}]")
+        logger.info(
+            f"Signal fired: [increase_hashtag_count] for hashtag [{instance.tag}]"
+        )
         my_tag = MyTag.objects.get(id=instance.tag_id)
         instance.published = timezone.now()
         my_tag.count += 1
@@ -25,7 +27,9 @@ def increase_hashtag_count(sender, instance, **kwargs):
 @receiver(post_delete, sender=MyTaggedItem)
 def decrease_hashtag_count(sender, instance, **kwargs):
     try:
-        logger.info(f"Signal fired: [decrease_hashtag_count] for hashtag [{instance.tag}]")
+        logger.info(
+            f"Signal fired: [decrease_hashtag_count] for hashtag [{instance.tag}]"
+        )
         my_last_tag = MyTaggedItem.objects.filter(tag_id=instance.tag_id).order_by(
             "-id"
         )[:1]
