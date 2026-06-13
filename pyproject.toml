@@ -1,6 +1,93 @@
 [build-system]
-requires = ["setuptools >= 40.8.0", "wheel"]
+requires = ["setuptools >= 77", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-hashtag"
+description = "Django application provide hashtag functionality."
+authors = [
+    { name = "DLRSP", email = "dlrsp.dev@gmail.com" },
+]
+requires-python = ">=3.8"
+dynamic = ["version"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["django", "hashtag", "taggit"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.2",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "Django>=3.2",
+]
+
+[project.optional-dependencies]
+testing = [
+    "coverage",
+    "codecov",
+    "pytest",
+    "pytest-django",
+]
+linting = [
+    "flake8",
+    "flake8-pyproject",
+    "flake8-bugbear",
+    "flake8-comprehensions",
+    "flake8-tidy-imports",
+    "flake8-typing-imports",
+    "pylint",
+]
+
+[project.urls]
+Homepage = "https://github.com/DLRSP/django-hashtag"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.dynamic]
+version = { attr = "hashtag.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.distutils.bdist_wheel]
+universal = false
+
+[tool.flake8]
+max-line-length = 80
+select = ["E", "F", "W", "B", "B950", "C", "I", "TYP"]
+ignore = ["E203", "E501", "W503"]
+per-file-ignores = ["*/apps.py:F401"]
+
+[tool.coverage.paths]
+source = ["src", ".tox/*/site-packages"]
+
+[tool.coverage.run]
+branch = true
+source = ["hashtag"]
+
+[tool.coverage.report]
+show_missing = true
 
 [tool.black]
 target-version = ['py311']
@@ -39,7 +126,5 @@ tag = true
 allow_dirty = true
 
 [[tool.bumpversion.files]]
-filename = "./setup.cfg"
-
-[[tool.bumpversion.files]]
 filename = "./src/hashtag/__init__.py"
+
