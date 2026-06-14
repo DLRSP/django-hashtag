@@ -15,9 +15,15 @@ dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-keywords = ["django", "hashtag", "taggit"]
+keywords = [
+    "django",
+    "hashtag",
+    "taggit",
+    "tags",
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
+    "Topic :: Text Processing :: Indexing",
     "Environment :: Web Environment",
     "Framework :: Django",
     "Framework :: Django :: 3.2",
@@ -63,6 +69,10 @@ linting = [
 
 [project.urls]
 Homepage = "https://github.com/DLRSP/django-hashtag"
+Documentation = "https://github.com/DLRSP/django-hashtag/"
+Repository = "https://github.com/DLRSP/django-hashtag"
+Issues = "https://github.com/DLRSP/django-hashtag/issues"
+Changelog = "https://github.com/DLRSP/django-hashtag/blob/main/CHANGELOG.rst"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
@@ -108,7 +118,6 @@ ignore = [
     "docs/community/third-party-packages.md",
     "docs/tutorial/customize.md",
 ]
-["AGENTS.md"]
 
 # Read by flake8 when flake8-pyproject is installed (extra `linting`).
 [tool.mypy]
