@@ -28,14 +28,21 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(max_length=100, unique=True, verbose_name="name"),
+                    models.CharField(
+                        max_length=100, unique=True, verbose_name="name"
+                    ),
                 ),
                 (
                     "slug",
-                    models.SlugField(max_length=100, unique=True, verbose_name="slug"),
+                    models.SlugField(
+                        max_length=100, unique=True, verbose_name="slug"
+                    ),
                 ),
                 ("active", models.BooleanField(default=True)),
-                ("count", models.IntegerField(blank=True, default=0, null=True)),
+                (
+                    "count",
+                    models.IntegerField(blank=True, default=0, null=True),
+                ),
                 (
                     "last_used",
                     models.DateTimeField(
@@ -64,11 +71,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(max_length=100, unique=True, verbose_name="Name"),
+                    models.CharField(
+                        max_length=100, unique=True, verbose_name="Name"
+                    ),
                 ),
                 (
                     "slug",
-                    models.SlugField(max_length=100, unique=True, verbose_name="Slug"),
+                    models.SlugField(
+                        max_length=100, unique=True, verbose_name="Slug"
+                    ),
                 ),
                 ("active", models.BooleanField(default=True)),
             ],
@@ -91,7 +102,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "object_id",
-                    models.IntegerField(db_index=True, verbose_name="object ID"),
+                    models.IntegerField(
+                        db_index=True, verbose_name="object ID"
+                    ),
                 ),
                 ("published", models.DateTimeField(editable=False, null=True)),
                 (

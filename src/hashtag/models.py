@@ -47,4 +47,6 @@ class MyTaggedItem(GenericTaggedItemBase):
         on_delete=models.CASCADE,
         related_name="%(app_label)s_%(class)s_items",
     )
-    published = models.DateTimeField(editable=False, null=True, auto_now_add=True)
+    published = models.DateTimeField(
+        editable=False, null=True, auto_now_add=True
+    )

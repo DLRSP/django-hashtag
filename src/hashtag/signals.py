@@ -30,9 +30,9 @@ def decrease_hashtag_count(sender, instance, **kwargs):
         logger.info(
             f"Signal fired: [decrease_hashtag_count] for hashtag [{instance.tag}]"
         )
-        my_last_tag = MyTaggedItem.objects.filter(tag_id=instance.tag_id).order_by(
-            "-id"
-        )[:1]
+        my_last_tag = MyTaggedItem.objects.filter(
+            tag_id=instance.tag_id
+        ).order_by("-id")[:1]
         my_tag = MyTag.objects.get(id=instance.tag_id)
         my_tag.count -= 1
         if my_last_tag:
