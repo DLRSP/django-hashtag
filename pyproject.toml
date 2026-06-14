@@ -135,4 +135,3 @@ allow_dirty = true
 
 [[tool.bumpversion.files]]
 filename = "./src/hashtag/__init__.py"
-
