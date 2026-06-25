@@ -39,13 +39,13 @@ class MyTag(TagBase):
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        # Opt-in: a tag has a canonical page only when the project names the
-        # route via HASHTAG_TAG_URL_NAME. Sites that surface tags as an
-        # in-context filter (?tag=slug) leave it unset and build links with
-        # the hashtag_chips ``filter_url`` argument instead.
+        # Canonical tag page route, configurable via HASHTAG_TAG_URL_NAME
+        # (default "tagged" for backward compatibility). Set it to "" to
+        # disable canonical tag pages: get_absolute_url() then raises
+        # NoReverseMatch and hashtag_chips falls back to filter_url.
         url_name = getattr(settings, "HASHTAG_TAG_URL_NAME", "tagged")
         if not url_name:
-            raise NoReverseMatch("HASHTAG_TAG_URL_NAME is not configured")
+            raise NoReverseMatch('HASHTAG_TAG_URL_NAME is disabled (set to "")')
         return reverse(url_name, args=[str(self.slug)])
 
 

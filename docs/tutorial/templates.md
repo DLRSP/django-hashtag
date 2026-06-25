@@ -72,8 +72,9 @@ for non-default relation paths; an empty slug returns the queryset unchanged.
 
 ## Optional canonical tag page: `HASHTAG_TAG_URL_NAME`
 
-`MyTag.get_absolute_url()` is opt-in. A tag has a canonical page only when the
-project names the route via `HASHTAG_TAG_URL_NAME`:
+`MyTag.get_absolute_url()` is configurable via `HASHTAG_TAG_URL_NAME`, which
+defaults to `"tagged"` for backward compatibility. Set it to `""` to disable
+canonical tag pages:
 
 ``` python title="settings.py"
 # Enable canonical per-tag URLs resolved with reverse(name, args=[slug]).

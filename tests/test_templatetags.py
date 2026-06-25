@@ -92,3 +92,20 @@ class HashtagChipsTest(SimpleTestCase):
         self.assertIn("review-channel-click", html)
         self.assertIn('data-placement="review_modal"', html)
         self.assertIn('data-channel="tag"', html)
+
+    def test_tag_name_markup_is_escaped(self):
+        html = render(
+            "tags linkable=False",
+            tags=[Tag("<script>x</script>", "x")],
+        )
+        self.assertNotIn("<script>", html)
+        self.assertIn("&lt;script&gt;", html)
+
+    def test_label_marks_container_and_items_as_list(self):
+        html = render(
+            'tags label="Tags" href_pattern="/r/?tag={slug}"',
+            tags=[Tag("Cozy", "cozy")],
+        )
+        self.assertIn('role="list"', html)
+        self.assertIn('aria-label="Tags"', html)
+        self.assertIn('role="listitem"', html)

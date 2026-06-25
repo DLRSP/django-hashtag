@@ -43,7 +43,7 @@ each Python and Django series.
 * A tag data model (`MyTag`, `MyTagGroup`, `MyTaggedItem`).
 * A reusable `hashtag_chips` template tag to render tags as themeable chips.
 * `hashtag.filtering` helpers to filter list views by the active tag.
-* An opt-in canonical tag URL via the `HASHTAG_TAG_URL_NAME` setting.
+* A configurable canonical tag URL via the `HASHTAG_TAG_URL_NAME` setting (default `tagged`).
 
 See the [Templates](tutorial/templates.md) guide for usage.
 
