@@ -1,16 +1,25 @@
-"""Test's urls view for django-hashtag"""
+"""Test urls for django-hashtag.
+
+Defines the ``tagged`` route name that ``MyTag.get_absolute_url`` reverses,
+so model and template-tag behaviour can be exercised in isolation.
+"""
 
 from django.conf.urls.i18n import i18n_patterns
-from django.urls import include, path, re_path
+from django.http import HttpResponse
+from django.urls import path, re_path
 from django.views.i18n import JavaScriptCatalog
 
+
+def tagged(request, slug):
+    return HttpResponse(slug)
+
+
 urlpatterns = [
-    path("", include("hashtag.urls")),
+    path("tag/<slug:slug>/", tagged, name="tagged"),
 ]
 
 urlpatterns += i18n_patterns(
     re_path(
         r"^jsi18n/$", JavaScriptCatalog.as_view(), name="javascript-catalog"
     ),
-    path("", include("hashtag.urls")),
 )

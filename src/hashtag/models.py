@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.urls import reverse
+from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from taggit.models import GenericTaggedItemBase, TagBase
@@ -38,7 +39,14 @@ class MyTag(TagBase):
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("tagged", args=[str(self.slug)])
+        # Opt-in: a tag has a canonical page only when the project names the
+        # route via HASHTAG_TAG_URL_NAME. Sites that surface tags as an
+        # in-context filter (?tag=slug) leave it unset and build links with
+        # the hashtag_chips ``filter_url`` argument instead.
+        url_name = getattr(settings, "HASHTAG_TAG_URL_NAME", "tagged")
+        if not url_name:
+            raise NoReverseMatch("HASHTAG_TAG_URL_NAME is not configured")
+        return reverse(url_name, args=[str(self.slug)])
 
 
 class MyTaggedItem(GenericTaggedItemBase):

@@ -1,0 +1,38 @@
+/*
+ * Shared base for rendering tag chips across consumers.
+ * Markup + behaviour are common; each site themes via CSS custom properties
+ * on .hashtag-chip and per-variant overrides (.hashtag-chip--<variant>).
+ */
+.hashtag-chips {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--hashtag-chips-gap, 0.4rem);
+}
+
+.hashtag-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--hashtag-chip-padding-y, 0.3rem) var(--hashtag-chip-padding-x, 0.7rem);
+    border-radius: var(--hashtag-chip-radius, 999px);
+    background: var(--hashtag-chip-bg, #eef6fb);
+    color: var(--hashtag-chip-color, #2a6f97);
+    border: 1px solid var(--hashtag-chip-border, transparent);
+    font-size: var(--hashtag-chip-font-size, 0.8rem);
+    font-weight: var(--hashtag-chip-font-weight, 600);
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+a.hashtag-chip:hover,
+a.hashtag-chip:focus {
+    background: var(--hashtag-chip-bg-hover, #d8ecf7);
+    color: var(--hashtag-chip-color-hover, #1d5573);
+    text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hashtag-chip {
+        transition: none;
+    }
+}
