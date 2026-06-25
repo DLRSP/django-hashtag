@@ -950,8 +950,9 @@ in-context list views, without referencing any consumer model:</p>
 <p><code>filter_queryset_by_tag</code> accepts a <code>lookup</code> argument (default <code>"tags__slug"</code>)
 for non-default relation paths; an empty slug returns the queryset unchanged.</p>
 <h2 id="optional-canonical-tag-page-hashtag_tag_url_name"><a class="toclink" href="#optional-canonical-tag-page-hashtag_tag_url_name">Optional canonical tag page: <code>HASHTAG_TAG_URL_NAME</code></a></h2>
-<p><code>MyTag.get_absolute_url()</code> is opt-in. A tag has a canonical page only when the
-project names the route via <code>HASHTAG_TAG_URL_NAME</code>:</p>
+<p><code>MyTag.get_absolute_url()</code> is configurable via <code>HASHTAG_TAG_URL_NAME</code>, which
+defaults to <code>"tagged"</code> for backward compatibility. Set it to <code>""</code> to disable
+canonical tag pages:</p>
 <div class="highlight"><span class="filename">settings.py</span><pre><span></span><code><span class="c1"># Enable canonical per-tag URLs resolved with reverse(name, args=[slug]).</span>
 <span class="n">HASHTAG_TAG_URL_NAME</span> <span class="o">=</span> <span class="s2">&quot;tagged&quot;</span>
 
