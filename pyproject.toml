@@ -157,9 +157,26 @@ addopts = """\
     """
 django_find_project = false
 
+[tool.towncrier]
+package = "hashtag"
+package_dir = "src"
+filename = "CHANGELOG.rst"
+directory = "news/"
+version = "0.3.0"
+issue_format = "`#{issue} <https://github.com/DLRSP/django-hashtag/issues/{issue}>`_"
+type = [
+    { name = "Process", directory = "process", showcontent = true },
+    { name = "Deprecations and Removals", directory = "removal", showcontent = true },
+    { name = "Features", directory = "feature", showcontent = true },
+    { name = "Bug Fixes", directory = "bugfix", showcontent = true },
+    { name = "Vendored Libraries", directory = "vendor", showcontent = true },
+    { name = "Improved Documentation", directory = "doc", showcontent = true },
+    { name = "Trivial Changes", directory = "trivial", showcontent = false },
+]
+
 # bump-my-version
 [tool.bumpversion]
-current_version = "0.2.2"
+current_version = "0.3.0"
 commit = true
 tag = true
 allow_dirty = true
