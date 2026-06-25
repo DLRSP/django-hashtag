@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://github.com/DLRSP/django-hashtag/</loc>
+         <lastmod>2026-06-25</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/DLRSP/django-hashtag/community/contributing/</loc>
+         <lastmod>2026-06-25</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/DLRSP/django-hashtag/community/references/</loc>
+         <lastmod>2026-06-25</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/DLRSP/django-hashtag/community/third-party-packages/</loc>
+         <lastmod>2026-06-25</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/DLRSP/django-hashtag/tutorial/example/</loc>
+         <lastmod>2026-06-25</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/DLRSP/django-hashtag/tutorial/images/</loc>
+         <lastmod>2026-06-25</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/DLRSP/django-hashtag/tutorial/templates/</loc>
+         <lastmod>2026-06-25</lastmod>
+    </url>
+</urlset>
