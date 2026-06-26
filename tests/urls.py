@@ -11,7 +11,10 @@ from django.views.i18n import JavaScriptCatalog
 
 
 def tagged(request, slug):
-    return HttpResponse(slug)
+    # Reversal-only fixture: ``MyTag.get_absolute_url`` reverses the ``tagged``
+    # route name; no test inspects the body. Do NOT echo the user-provided slug
+    # back in the response — that is reflected XSS (CWE-79) and CodeQL flags it.
+    return HttpResponse("ok")
 
 
 urlpatterns = [
