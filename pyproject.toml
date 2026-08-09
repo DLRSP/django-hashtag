@@ -159,6 +159,7 @@ package = "hashtag"
 package_dir = "src"
 filename = "CHANGELOG.rst"
 directory = "news/"
+version = "0.4.1"
 issue_format = "`#{issue} <https://github.com/DLRSP/django-hashtag/issues/{issue}>`_"
 type = [
     { name = "Process", directory = "process", showcontent = true },
@@ -179,3 +180,7 @@ allow_dirty = true
 
 [[tool.bumpversion.files]]
 filename = "./src/hashtag/__init__.py"
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+search = 'version = "{current_version}"'
+replace = 'version = "{new_version}"'
