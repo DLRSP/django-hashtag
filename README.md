@@ -10,6 +10,7 @@
 ## GitHub ![GitHub release](https://img.shields.io/github/tag/DLRSP/django-hashtag.svg) ![GitHub release](https://img.shields.io/github/release/DLRSP/django-hashtag.svg)
 
 ## Test [![codecov.io](https://codecov.io/github/DLRSP/django-hashtag/coverage.svg?branch=main)](https://codecov.io/github/DLRSP/django-hashtag?branch=main) [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/DLRSP/django-hashtag/main.svg)](https://results.pre-commit.ci/latest/github/DLRSP/django-hashtag/main) [![gitthub.com](https://github.com/DLRSP/django-hashtag/actions/workflows/ci.yaml/badge.svg)](https://github.com/DLRSP/django-hashtag/actions/workflows/ci.yaml)
+[![Docs](https://img.shields.io/badge/docs-GitHub_Pages-blue)](https://dlrsp.github.io/django-hashtag/)
 
 ## Check Demo Project
 * Check the demo repo on [GitHub](https://github.com/DLRSP/example/tree/django-hashtag)
