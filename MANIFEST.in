@@ -14,3 +14,4 @@ recursive-exclude requirements *.py
 recursive-include src *.py *.html *.css *.js *.po *.mo *.gif *.png
 recursive-include tests *.py
 recursive-include docs *.md
+recursive-include news *.rst

@@ -3,6 +3,15 @@ django-hashtag changelog
 
 .. towncrier release notes start
 
+hashtag 0.4.5 (2026-08-14)
+==========================
+
+Bug Fixes
+---------
+
+- ﻿Make `last_used` default/sentinel respect `USE_TZ`; reject backslash protocol-relative chip hrefs. (`#tz-safe-href <https://github.com/DLRSP/django-hashtag/issues/tz-safe-href>`_)
+
+
 hashtag 0.4.4 (2026-08-14)
 ==========================
 

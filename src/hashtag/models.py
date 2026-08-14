@@ -6,6 +6,16 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from taggit.models import GenericTaggedItemBase, TagBase
 
+from datetime import datetime
+
+
+def empty_last_used():
+    """Sentinel last_used when a tag has no items (respects USE_TZ)."""
+    naive = datetime(2000, 1, 1, 0, 0)
+    if settings.USE_TZ:
+        return timezone.make_aware(naive, timezone.get_default_timezone())
+    return naive
+
 
 class MyTagGroup(TagBase):
     name = models.CharField(verbose_name=_("Name"), unique=True, max_length=100)
@@ -26,7 +36,7 @@ class MyTag(TagBase):
     last_used = models.DateTimeField(
         null=True,
         blank=True,
-        default=timezone.make_aware(timezone.datetime(2000, 1, 1, 00, 00)),
+        default=empty_last_used,
     )
 
     class Meta:

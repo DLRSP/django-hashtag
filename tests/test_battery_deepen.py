@@ -1,4 +1,4 @@
-"""Round 3 deepen: S4/S5 href+escape, P1/P2 query budgets, F1 filter_url fallback."""
+"""Chip href sanitization, HTML escaping, query budgets, and filter fallbacks."""
 
 from __future__ import annotations
 
@@ -28,12 +28,14 @@ class Tag:
 
 
 def render(arg, **ctx):
-    template = Template("{% load hashtag_tags %}{% hashtag_chips " + arg + " %}")
+    template = Template(
+        "{% load hashtag_tags %}{% hashtag_chips " + arg + " %}"
+    )
     return template.render(Context(ctx))
 
 
-class SafeHrefDeepenTests(SimpleTestCase):
-    """S4 + BLOCCA: reject vbscript, protocol-relative, whitespace+javascript."""
+class SafeHrefTests(SimpleTestCase):
+    """Reject dangerous schemes and protocol-relative / backslash forms."""
 
     def test_rejects_vbscript_scheme(self):
         self.assertEqual(_safe_href("vbscript:msgbox(1)"), "")
@@ -53,6 +55,18 @@ class SafeHrefDeepenTests(SimpleTestCase):
         self.assertNotIn("//evil", html)
         self.assertNotIn("<a ", html)
 
+    def test_rejects_backslash_protocol_relative_forms(self):
+        for href in (
+            r"\\evil.example/x",
+            r"/\evil.example/x",
+            r"\\\evil.example/x",
+        ):
+            with self.subTest(href=repr(href)):
+                self.assertEqual(_safe_href(href), "")
+                html = render("tags", tags=[Tag("Evil", "evil", url=href)])
+                self.assertNotIn("evil.example", html)
+                self.assertNotIn("<a ", html)
+
     def test_rejects_leading_whitespace_javascript(self):
         for href in (
             " javascript:alert(1)",
@@ -67,7 +81,6 @@ class SafeHrefDeepenTests(SimpleTestCase):
                 self.assertNotIn("<a ", html)
 
     def test_javascript_scheme_still_rejected(self):
-        """BLOCCA pressure: plain javascript: must stay rejected."""
         self.assertEqual(_safe_href("javascript:alert(1)"), "")
         html = render(
             "tags",
@@ -77,13 +90,13 @@ class SafeHrefDeepenTests(SimpleTestCase):
         self.assertNotIn("<a ", html)
 
 
-class ChipEscapeDeepenTests(SimpleTestCase):
-    """S5: quotes and angle brackets in chip names are HTML-escaped."""
+class ChipEscapeTests(SimpleTestCase):
+    """Quotes and angle brackets in chip names are HTML-escaped."""
 
     def test_quotes_and_brackets_escaped_in_output(self):
         html = render(
             "tags linkable=False",
-            tags=[Tag('a"b\'c<>d', "nasty")],
+            tags=[Tag("a\"b'c<>d", "nasty")],
         )
         self.assertNotIn('a"b', html)
         self.assertNotIn("<d", html)
@@ -94,7 +107,7 @@ class ChipEscapeDeepenTests(SimpleTestCase):
 
 
 class PlainStringChipsQueryBudgetTests(TestCase):
-    """P1: plain string tags render with zero ORM queries."""
+    """Plain string tags render with zero ORM queries."""
 
     def test_plain_string_tags_issue_zero_queries(self):
         with CaptureQueriesContext(connection) as ctx:
@@ -108,8 +121,8 @@ class PlainStringChipsQueryBudgetTests(TestCase):
         self.assertIn("#spa", html)
 
 
-class FilterDistinctDeepenTests(TestCase):
-    """P2: duplicate M2M joins collapse to distinct size."""
+class FilterDistinctTests(TestCase):
+    """Duplicate M2M joins collapse to distinct size."""
 
     def test_duplicate_label_joins_return_distinct_size(self):
         target = ChipTarget.objects.create(name="room-1")
@@ -127,11 +140,13 @@ class FilterDistinctDeepenTests(TestCase):
             ChipTarget.objects.all(), "spa", lookup="labels__slug"
         )
         self.assertEqual(filtered.count(), 1)
-        self.assertEqual(list(filtered.values_list("pk", flat=True)), [target.pk])
+        self.assertEqual(
+            list(filtered.values_list("pk", flat=True)), [target.pk]
+        )
 
 
 class TagUrlDisabledFilterFallbackTests(TestCase):
-    """F1: HASHTAG_TAG_URL_NAME=\"\" → chips use filter_url only."""
+    """When HASHTAG_TAG_URL_NAME is blank, chips use filter_url only."""
 
     @override_settings(HASHTAG_TAG_URL_NAME="")
     def test_chips_use_filter_url_when_canonical_disabled(self):

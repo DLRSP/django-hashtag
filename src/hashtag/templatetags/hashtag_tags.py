@@ -9,13 +9,20 @@ register = template.Library()
 
 
 def _safe_href(href: str) -> str:
-    """Allow relative paths and http(s); drop any other URL scheme."""
+    """Allow relative paths and http(s); drop any other URL scheme.
+
+    Also rejects protocol-relative forms (``//…``) and backslash variants
+    that browsers may normalize into network URLs (``\\\\…``, ``/\\…``).
+    """
     if not href:
         return ""
     href = href.strip()
     if not href:
         return ""
-    # Protocol-relative URLs resolve against the page origin — reject.
+    # Normalize backslashes before scheme checks — browsers treat
+    # ``\\host`` / ``/\host`` like protocol-relative URLs.
+    if "\\" in href:
+        href = href.replace("\\", "/")
     if href.startswith("//"):
         return ""
     parsed = urlparse(href)

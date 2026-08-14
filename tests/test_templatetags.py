@@ -19,7 +19,9 @@ class Tag:
 
 
 def render(arg, **ctx):
-    template = Template("{% load hashtag_tags %}{% hashtag_chips " + arg + " %}")
+    template = Template(
+        "{% load hashtag_tags %}{% hashtag_chips " + arg + " %}"
+    )
     return template.render(Context(ctx))
 
 
@@ -143,6 +145,16 @@ class HashtagChipsTest(SimpleTestCase):
         self.assertNotIn("javascript:", html)
         self.assertNotIn("<a ", html)
         self.assertIn("hashtag-chip", html)
+
+    def test_rejects_backslash_protocol_relative_forms(self):
+        for href in (r"\\evil.example/x", r"/\evil.example/x"):
+            with self.subTest(href=repr(href)):
+                html = render(
+                    "tags",
+                    tags=[Tag("Evil", "evil", url=href)],
+                )
+                self.assertNotIn("evil.example", html)
+                self.assertNotIn("<a ", html)
 
     def test_allows_https_absolute_url(self):
         html = render(

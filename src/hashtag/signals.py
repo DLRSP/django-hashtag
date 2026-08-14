@@ -4,7 +4,7 @@ from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from django.utils import timezone
 
-from hashtag.models import MyTag, MyTaggedItem
+from hashtag.models import MyTag, MyTaggedItem, empty_last_used
 
 logger = logging.getLogger(__name__)
 
@@ -38,9 +38,7 @@ def decrease_hashtag_count(sender, instance, **kwargs):
         if my_last_tag:
             my_tag.last_used = my_last_tag[0].published
         else:
-            my_tag.last_used = timezone.make_aware(
-                timezone.datetime(2000, 1, 1, 0, 0)
-            )
+            my_tag.last_used = empty_last_used()
         my_tag.save()
     except Exception as err:
         logger.error(f"Hashtag signal: {err}")
