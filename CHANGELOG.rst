@@ -3,6 +3,12 @@ django-hashtag changelog
 
 .. towncrier release notes start
 
+hashtag 0.4.3 (2026-08-14)
+==========================
+
+No significant changes.
+
+
 hashtag 0.4.2 (2026-08-10)
 ==========================
 
