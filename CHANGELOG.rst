@@ -3,6 +3,15 @@ django-hashtag changelog
 
 .. towncrier release notes start
 
+hashtag 0.4.4 (2026-08-14)
+==========================
+
+Bug Fixes
+---------
+
+- Sanitize chip hrefs to http(s)/relative only; make ``last_used`` fallback timezone-aware. (`#safe-chip-hrefs <https://github.com/DLRSP/django-hashtag/issues/safe-chip-hrefs>`_)
+
+
 hashtag 0.4.3 (2026-08-14)
 ==========================
 
