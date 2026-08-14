@@ -38,7 +38,9 @@ def decrease_hashtag_count(sender, instance, **kwargs):
         if my_last_tag:
             my_tag.last_used = my_last_tag[0].published
         else:
-            my_tag.last_used = timezone.datetime(2000, 1, 1, 00, 00)
+            my_tag.last_used = timezone.make_aware(
+                timezone.datetime(2000, 1, 1, 0, 0)
+            )
         my_tag.save()
     except Exception as err:
         logger.error(f"Hashtag signal: {err}")

@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "taggit",
     "hashtag",
+    "tests.apps.TestsConfig",
 ]
 
 DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3"}}

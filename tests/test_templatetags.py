@@ -109,3 +109,44 @@ class HashtagChipsTest(SimpleTestCase):
         self.assertIn('role="list"', html)
         self.assertIn('aria-label="Tags"', html)
         self.assertIn('role="listitem"', html)
+
+    def test_rejects_javascript_href_scheme(self):
+        html = render(
+            "tags",
+            tags=[Tag("XSS", "xss", url="javascript:alert(1)")],
+        )
+        self.assertNotIn("javascript:", html)
+        self.assertNotIn("<a ", html)
+        self.assertIn("hashtag-chip", html)
+
+    def test_rejects_data_href_scheme(self):
+        html = render(
+            "tags",
+            tags=[Tag("Data", "data", url="data:text/html,hi")],
+        )
+        self.assertNotIn("data:text", html)
+        self.assertNotIn("<a ", html)
+
+    def test_rejects_javascript_filter_url(self):
+        html = render(
+            'tags filter_url="javascript:alert(1)"',
+            tags=[Tag("XSS", "xss")],
+        )
+        self.assertNotIn("javascript:", html)
+        self.assertNotIn("<a ", html)
+
+    def test_rejects_javascript_href_pattern(self):
+        html = render(
+            'tags href_pattern="javascript:alert({slug})"',
+            tags=[Tag("XSS", "xss")],
+        )
+        self.assertNotIn("javascript:", html)
+        self.assertNotIn("<a ", html)
+        self.assertIn("hashtag-chip", html)
+
+    def test_allows_https_absolute_url(self):
+        html = render(
+            "tags",
+            tags=[Tag("Ok", "ok", url="https://example.test/tag/ok/")],
+        )
+        self.assertIn('href="https://example.test/tag/ok/"', html)

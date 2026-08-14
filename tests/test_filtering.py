@@ -56,3 +56,27 @@ class ActiveTagSlugTest(SimpleTestCase):
     def test_missing_returns_empty_string(self):
         request = self.factory.get("/reviews/")
         self.assertEqual(active_tag_slug(request), "")
+
+
+class ActiveSlugFilterIntegrationTest(SimpleTestCase):
+    """Wire active_tag_slug into filter_queryset_by_tag the way list views do."""
+
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_request_slug_filters_queryset(self):
+        request = self.factory.get("/reviews/", {"tag": "spa"})
+        slug = active_tag_slug(request)
+        qs = FakeQuerySet()
+        out = filter_queryset_by_tag(qs, slug)
+        self.assertIs(out, qs)
+        self.assertEqual(
+            qs.calls, [("filter", {"tags__slug": "spa"}), ("distinct", {})]
+        )
+
+    def test_missing_slug_leaves_queryset_unfiltered(self):
+        request = self.factory.get("/reviews/")
+        slug = active_tag_slug(request)
+        qs = FakeQuerySet()
+        filter_queryset_by_tag(qs, slug)
+        self.assertEqual(qs.calls, [])

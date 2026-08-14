@@ -1,9 +1,31 @@
 """Reusable rendering helpers for tag collections."""
 
+from urllib.parse import urlparse
+
 from django import template
 from django.urls import NoReverseMatch
 
 register = template.Library()
+
+
+def _safe_href(href: str) -> str:
+    """Allow relative paths and http(s); drop any other URL scheme."""
+    if not href:
+        return ""
+    href = href.strip()
+    if not href:
+        return ""
+    # Protocol-relative URLs resolve against the page origin — reject.
+    if href.startswith("//"):
+        return ""
+    parsed = urlparse(href)
+    scheme = (parsed.scheme or "").lower()
+    if not scheme:
+        # Relative / same-document / root-relative
+        return href
+    if scheme in {"http", "https"}:
+        return href
+    return ""
 
 
 @register.inclusion_tag("hashtag/chips.html")
@@ -48,7 +70,7 @@ def hashtag_chips(
                         href = getter()
                     except NoReverseMatch:
                         href = ""
-        items.append({"name": name, "slug": slug, "href": href})
+        items.append({"name": name, "slug": slug, "href": _safe_href(href)})
     return {
         "items": items,
         "variant": variant,

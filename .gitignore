@@ -127,10 +127,6 @@ Thumbs.db
 
 # Folder config file
 Desktop.ini
-
-# Utility Script
-exec_*.bat
-
 #############
 ## Python
 #############
@@ -170,7 +166,15 @@ pip-log.txt
 #############
 site
 
-# AI
-AGENTS.md
 .**/rules/*.mdc
 .**/commands/*.md
+
+# Agent architecture (local only — never publish)
+AGENTS.md
+**/dlrsp-runs/
+**/plans/*.plan.md
+.**/rules/*.mdc
+.**/commands/*.md
+
+# Local helper scripts (never publish)
+exec_*.bat
