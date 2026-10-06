@@ -159,7 +159,7 @@ package = "hashtag"
 package_dir = "src"
 filename = "CHANGELOG.rst"
 directory = "news/"
-version = "0.4.6"
+version = "0.4.7"
 issue_format = "`#{issue} <https://github.com/DLRSP/django-hashtag/issues/{issue}>`_"
 type = [
     { name = "Process", directory = "process", showcontent = true },
@@ -173,7 +173,7 @@ type = [
 
 # bump-my-version
 [tool.bumpversion]
-current_version = "0.4.6"
+current_version = "0.4.7"
 commit = true
 tag = true
 allow_dirty = true
